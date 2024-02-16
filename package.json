@@ -4,7 +4,8 @@
   "description": "A sample Stripe implementation",
   "main": "server.js",
   "scripts": {
-    "start": "node --env-file=.env.local server.js"
+    "start": "node --env-file=.env.local server.js",
+    "build": "npm i"
   },
   "author": "stripe-samples",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "body-parser": "^1.20.2",
     "express": "^4.17.1",
     "stripe": "^13.0.0"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.2"
   }
 }

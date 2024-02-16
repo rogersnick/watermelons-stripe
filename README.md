@@ -4,7 +4,7 @@
 
 This code implements a simple Stripe checkout sales page for selling watermelon emojis.
 
-## Running the sample
+## Running locally
 
 1. Install dependencies
 
@@ -30,14 +30,15 @@ npm start
 
 ## Details and Customization
 
-Stripe Checkout is the fastest way to get started with payments. This template contains three important files:
+This basic express web server hooks users up with three important files from the `/public` folder: 
 
-`/public` - these files are served directly as is and contain no secret information
-
-- _checkout.html_: The actual form that users will see which initiates a post to the backend. Change this to alter how you sales page appears
+- _index.html_: The actual form that users will see which initiates a post to the backend.
 - _success.html_: Displayed to users upon a successful purchase
 - _winback.html_ - Displayed to users if they return from the purchase screen without completing a purchase
 
-`/` - root files that run "on the server" and contain private information like API keys (these are stored in environment settings)
+`/server.js` - basic express server for backend functionality. It exposes the following routes:
 
-- server.js: exposes one endpoint called `/create-checkout-session` that answers the post request from the client facing form and forwards the user to a payment page
+- `/create-checkout-session` that answers the post request from the client facing form and forwards the user to a payment page
+- `/webhooks/stripe/` that receives webhook requests from stripe to keep track of how many watermelons there are right now
+- `persist.js` very lightweight data store for storing number of watermelons
+- 
