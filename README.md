@@ -1,6 +1,8 @@
-# Custom Stripe Checkout Example
+# Watermelon Demo Sales Page
 
-This code implements a simple Stripe checkout sales page.
+![colorful watermelons on a laptop](./public/img/watermelon-computer.png)
+
+This code implements a simple Stripe checkout sales page for selling watermelon emojis.
 
 ## Running the sample
 
