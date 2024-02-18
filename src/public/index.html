@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      const getWatermelonPatch = (numWatermelons) => {
+        const outerModulus = 18000;
+        numPlatinumWatermelons = Math.floor((numWatermelons / outerModulus));
+        remainderPlatinum = numWatermelons % outerModulus;
+
+        const modulus = 435;
+        numGoldenWatermelons = Math.floor((remainderPlatinum / modulus))
+        numRegularWatermelons = remainderPlatinum % modulus;
+
+        return `
+          <span class="text-transparent [text-shadow:0px_0px_0px_var(--tw-shadow-color)] shadow-pink-500">${'🍉 '.repeat(numPlatinumWatermelons)} </span>
+          <span class="text-transparent [text-shadow:0px_0px_0px_var(--tw-shadow-color)] shadow-lime-500">${'🍉 '.repeat(numGoldenWatermelons)} </span>
+          <span>${'🍉 '.repeat(numRegularWatermelons)}</span>`
+      }
+
+      const formatPrice = (priceCents) => {
+        if (priceCents == 2500) {
+            return '25 Bucks';  
+          } else if (priceCents == 1000) {
+            return '10 Dollars';  
+          } else if (priceCents == 500) {
+            return '5 Dollarinos';  
+          } else if (priceCents == 5000) {
+            return 'Fifty Big Ones!';  
+          } else if (priceCents > 1000 && priceCents < 5000) {
+            return `$${(priceCents/100).toFixed(2)}`;
+          } else {
+            return `${priceCents} cents`;
+          }
+      }
+      document.addEventListener("DOMContentLoaded", function(){
+        document.querySelector("#sold").innerHTML = getWatermelonPatch(10)
+
+        document.getElementById("pwycform").addEventListener("input", function () {
+          const priceCents = document.getElementById('price').value;
+          const watermelonsEl = document.querySelector("#watermelons");
+          document.querySelector('#payButton').innerText = formatPrice(priceCents)
+          
+          numWatermelons = Math.floor(priceCents / 5);
+          const description = `Adds ${numWatermelons} watermelons.`
+          document.querySelector('#youPay').innerHTML = description;
+          watermelonsEl.innerHTML = `<span id="watermelons">${'🍉 '.repeat(numWatermelons)}</span>`;
+        });
+      
+      });
+    </script>
+  </phead>
+  <body>
+    <div class="fixed z-10">
+      <div class="flex items-center justify-center px-4">
+        <div class="max-w-xs mt-40">
+          <form class="grid gap-2" id="pwycform" action="/create-checkout-session" method="post">
+            <div class="space-y-2">
+              <h2 id="youPay" class="text-2xl font-bold tracking-tighter sm:text-4xl">Adds 10 watermelons.</h2>
+            </div>  
+            <input 
+            type="range" 
+            id="price" name="price"
+            value="0" step="5" min="50" max="2500"
+            class="w-full	appearance-none [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-green-800/25 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[40px] [&::-webkit-slider-thumb]:w-[50px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-pink-500"
+          >
+                <button 
+                  id="payButton" 
+                  class="bg-lime-500 hover:bg-pink-400 text-white font-bold py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded text-2xl font-bold sm:text-3xl"
+                >
+                  50 Cents
+                </button>
+            </form>
+            <p class="text-1xl tracking-tighter">Purchased watermelons get added to this page. There are 10 watermelons right now.</p>
+            <ul>
+              <li> <span>🍉</span> - regular</li>
+              <li><span class="text-transparent [text-shadow:0px_0px_0px_var(--tw-shadow-color)] shadow-lime-500">🍉</span> - lime = 435 🍉 </li>
+              <li><span class="text-transparent [text-shadow:0px_0px_0px_var(--tw-shadow-color)] shadow-pink-500">🍉</span> - pink = 18k 🍉 </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="text-xs ml-96 pt-10 [text-shadow:_0_1px_0_rgb(0_0_0_/_40%)] max-w-sm">
+   <span id="sold">🍉 🍉 🍉 🍉 🍉 🍉 🍉 🍉 🍉 🍉 </span>
+    <span class="animate-pulse" id="watermelons"></span>
+</div>
+  </body>
+</html>
